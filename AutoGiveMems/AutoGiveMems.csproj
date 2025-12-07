@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Nullable>enable</Nullable>
+    <AssemblyName>$(MSBuildProjectName)</AssemblyName>
+  </PropertyGroup>
+<PropertyGroup>
+  <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+</PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\MelonLoader\net35\0Harmony.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\LurkBait Twitch Fishing_Data\Managed\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Firesplash.UnityAssets.TwitchIntegration">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\LurkBait Twitch Fishing_Data\Managed\Firesplash.UnityAssets.TwitchIntegration.dll</HintPath>
+    </Reference>
+    <Reference Include="MelonLoader">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\MelonLoader\net35\MelonLoader.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\MelonLoader\net35\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StreamLinked">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\LurkBait Twitch Fishing_Data\Managed\StreamLinked.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\LurkBait Twitch Fishing_Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\LurkBait Twitch Fishing_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>F:\SteamLibrary\steamapps\common\LurkBait Twitch Fishing\LurkBait Twitch Fishing_Data\Managed\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
