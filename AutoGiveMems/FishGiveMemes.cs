@@ -282,9 +282,9 @@ namespace AutoGiveMems
                                         TwitchConnectorEventSub.Instance.SendTwitchMessage(String.Format(Settings.MessageNotEnoughGold, (Settings.Curse * Settings.MinExchange), countGold));
                                         return false;
                                     }
-                                    int giveMems = countGold / Settings.Curse;
+                                    int giveMems = countGold / (int)Settings.Curse;
                                     int PlayerGold = PlayersManager.Instance.Players[com.Username.ToLower()].gold;
-                                    int CashBack = PlayerGold - (giveMems * Settings.Curse);
+                                    int CashBack = PlayerGold - (giveMems * (int)Settings.Curse);
                                     PlayersManager.Instance.Players[com.Username.ToLower()].gold = CashBack;
                                     Thread.Sleep(1000);
                                     string CountGive = FormatWithCount(giveMems, Settings.ValuteFormat1, Settings.ValuteFormat2, Settings.ValuteFormat5);
