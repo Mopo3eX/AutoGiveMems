@@ -80,6 +80,12 @@ namespace AutoGiveMems
                 {
                     Instance.LoggerInstance.Msg($"Ошибка загрузки настроек. Обмен не будет работать. ({e.Message})\r\n{e.StackTrace}");
                 }
+                if(Settings.Curse <=0)
+                    Settings.Curse = 1;
+                if(Settings.MinExchange <=0)
+                    Settings.MinExchange = 1;
+                if(Settings.Chanse < 0)
+                    Settings.Chanse = 0;
                 File.WriteAllText("Settings.json", JsonConvert.SerializeObject(Settings, Formatting.Indented));
             }
             else

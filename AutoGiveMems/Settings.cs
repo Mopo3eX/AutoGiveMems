@@ -8,8 +8,8 @@ namespace AutoGiveMems
     {
         public string Authorization="";
         public string StreamerID="";
-        public int Curse = 100;
-        public int MinExchange = 1;
+        public uint Curse = 100;
+        public uint MinExchange = 1;
         public float Chanse = 1.0f;
         public bool IgnoringAlreadyCast = false;
         public bool FixTimeOutPostAnim = false;
@@ -25,12 +25,5 @@ namespace AutoGiveMems
         public string MessageNotEnoughGold = "У вас не достаточно золота в игре. (Необходимо {0}, а у вас {1} золота)";
         public string MessageGived = "Ваши {0} уже на вашем счету!";
         public string MessageNotGived = "Ожидайте, в течении 15 минут, вам будет начислено {0} на MemeAlerts.";
-        //public bool ModuleBlockAutoMessage = false;
-        //public string WSUrl = "ws://127.0.0.1:4455";
-        //public string WSPassword = "OZheoitrh34";
-
-        //public string NameGDITextCode = "CodeFishing";
-        //public int SecondsOfTimeChangeCode = 120;
-        //public int CodeLength = 4;
     }
 }
