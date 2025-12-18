@@ -1,3 +1,4 @@
+using AutoGiveMems;
 using Microsoft.Web.WebView2.Core;
 using Newtonsoft.Json;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -65,6 +66,12 @@ namespace MemeAlerts
                                         settings = new AutoGiveMems.Settings();
                                     }
                                     settings.Authorization = Bearer;
+                                    settings.StreamerID = GetStreamerID(settings);
+                                    if (String.IsNullOrWhiteSpace(settings.StreamerID))
+                                    {
+                                        MessageBox.Show("Ошибка получения StreamerID.", "Мы не смоогли получить StreamerID, обратитесь к разработчику",MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                        this.Close();
+                                    }
                                     File.WriteAllText(FileSettings, JsonConvert.SerializeObject(settings, Formatting.Indented));
                                 }
                                 else
@@ -72,6 +79,10 @@ namespace MemeAlerts
                                     settings.Authorization = Bearer;
                                     File.WriteAllText(FileSettings, JsonConvert.SerializeObject(settings, Formatting.Indented));
                                 }
+                                this.Close();
+                            }
+                            else
+                            {
                                 this.Close();
                             }
                         }
@@ -83,6 +94,37 @@ namespace MemeAlerts
                 MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
+        public static string GetStreamerID(Settings Settings)
+        {
+            try
+            {
+                HttpClient client = new HttpClient();
+
+                HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, "https://memealerts.com/api/user/current");
+
+                request.Headers.Add("accept", "*/*");
+                request.Headers.Add("accept-language", "ru-RU,ru;q=0.8");
+                request.Headers.Add("authorization", Settings.Authorization);
+                request.Headers.Add("priority", "u=1, i");
+                request.Headers.Add("sec-ch-ua", "\"Chromium\";v=\"142\", \"Brave\";v=\"142\", \"Not_A Brand\";v=\"99\"");
+                request.Headers.Add("sec-ch-ua-mobile", "?0");
+                request.Headers.Add("sec-ch-ua-platform", "\"Windows\"");
+                request.Headers.Add("sec-fetch-dest", "empty");
+                request.Headers.Add("sec-fetch-mode", "cors");
+                request.Headers.Add("sec-fetch-site", "same-origin");
+                request.Headers.Add("sec-gpc", "1");
+
+                HttpResponseMessage response = client.SendAsync(request).Result;
+                response.EnsureSuccessStatusCode();
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+                var current = JsonConvert.DeserializeObject<Current>(responseBody);
+                return current.id;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public string GetStreamerID()
         {
             HttpClient client = new HttpClient();
@@ -92,7 +134,6 @@ namespace MemeAlerts
             request.Headers.Add("accept", "*/*");
             request.Headers.Add("accept-language", "ru-RU,ru;q=0.8");
             request.Headers.Add("authorization", Bearer);
-            request.Headers.Add("if-none-match", "W/\"1312-tjmKxqHt28SF1yj4VQxHjDvTsWA\"");
             request.Headers.Add("priority", "u=1, i");
             request.Headers.Add("sec-ch-ua", "\"Chromium\";v=\"142\", \"Brave\";v=\"142\", \"Not_A Brand\";v=\"99\"");
             request.Headers.Add("sec-ch-ua-mobile", "?0");

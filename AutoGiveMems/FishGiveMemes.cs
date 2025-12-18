@@ -160,6 +160,10 @@ namespace AutoGiveMems
                                 Instance.LoggerInstance.Msg($"Вы успешно авторизовались.");
                                 Stop = true;
                             }
+                            else
+                            {
+                                Instance.LoggerInstance.Msg($"Ошибка в получении StreamerID, обратитесь к разработчику");
+                            }
                             if (Stop)
                                 return;
                         }
@@ -353,9 +357,8 @@ namespace AutoGiveMems
                 request.Headers.Add("accept", "*/*");
                 request.Headers.Add("accept-language", "ru-RU,ru;q=0.8");
                 request.Headers.Add("authorization", Settings.Authorization);
-                request.Headers.Add("if-none-match", "W/\"1312-tjmKxqHt28SF1yj4VQxHjDvTsWA\"");
                 request.Headers.Add("priority", "u=1, i");
-                request.Headers.Add("sec-ch-ua", "\"Chromium\";v=\"142\", \"Brave\";v=\"142\", \"Not_A Brand\";v=\"99\"");
+                request.Headers.Add("sec-ch-ua", "\"Brave\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\"");
                 request.Headers.Add("sec-ch-ua-mobile", "?0");
                 request.Headers.Add("sec-ch-ua-platform", "\"Windows\"");
                 request.Headers.Add("sec-fetch-dest", "empty");
