@@ -27,6 +27,7 @@ namespace MemeAlerts
         }
 
         string Bearer = null;
+        string FileSettings = "Settings.json";
         private void CoreWebView2_WebResourceRequested(object sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
             if (Bearer != null)
@@ -44,11 +45,19 @@ namespace MemeAlerts
                             if (!ToGame.SendAsync(Bearer).Result)
                             {
                                 AutoGiveMems.Settings settings = new AutoGiveMems.Settings();
-                                if (File.Exists("..\\Settings.json"))
+                                if (!File.Exists(FileSettings))
                                 {
+                                    if(File.Exists(".\\..\\Settings.json"))
+                                    {
+                                        FileSettings = ".\\..\\Settings.json";
+                                    }
+                                }
+                                if (File.Exists(FileSettings))
+                                {
+
                                     try
                                     {
-                                        settings = JsonConvert.DeserializeObject<AutoGiveMems.Settings>(File.ReadAllText("Settings.json"));
+                                        settings = JsonConvert.DeserializeObject<AutoGiveMems.Settings>(File.ReadAllText(FileSettings));
                                     }
                                     catch (Exception err)
                                     {
@@ -56,12 +65,12 @@ namespace MemeAlerts
                                         settings = new AutoGiveMems.Settings();
                                     }
                                     settings.Authorization = Bearer;
-                                    File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings, Formatting.Indented));
+                                    File.WriteAllText(FileSettings, JsonConvert.SerializeObject(settings, Formatting.Indented));
                                 }
                                 else
                                 {
                                     settings.Authorization = Bearer;
-                                    File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings, Formatting.Indented));
+                                    File.WriteAllText(FileSettings, JsonConvert.SerializeObject(settings, Formatting.Indented));
                                 }
                                 this.Close();
                             }
