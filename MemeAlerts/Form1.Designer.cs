@@ -42,6 +42,7 @@
             webView21.Size = new Size(1153, 657);
             webView21.TabIndex = 0;
             webView21.ZoomFactor = 1D;
+            webView21.Click += webView21_Click;
             // 
             // Form1
             // 

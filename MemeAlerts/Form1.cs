@@ -41,15 +41,37 @@ namespace MemeAlerts
                         if (Bearer == null)
                         {
                             Bearer = header.Value;
-                            ToGame.SendAsync(Bearer);
-                            this.Close();
+                            if (!ToGame.SendAsync(Bearer).Result)
+                            {
+                                AutoGiveMems.Settings settings = new AutoGiveMems.Settings();
+                                if (File.Exists("..\\Settings.json"))
+                                {
+                                    try
+                                    {
+                                        settings = JsonConvert.DeserializeObject<AutoGiveMems.Settings>(File.ReadAllText("Settings.json"));
+                                    }
+                                    catch (Exception err)
+                                    {
+                                        MessageBox.Show($"{err.Message}: \r\n {err.StackTrace}\r\nСгенерирован новый файл Settings.json");
+                                        settings = new AutoGiveMems.Settings();
+                                    }
+                                    settings.Authorization = Bearer;
+                                    File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings, Formatting.Indented));
+                                }
+                                else
+                                {
+                                    settings.Authorization = Bearer;
+                                    File.WriteAllText("Settings.json", JsonConvert.SerializeObject(settings, Formatting.Indented));
+                                }
+                                this.Close();
+                            }
                         }
                     }
                 }
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Îøèáêà: {ex.Message}");
+                MessageBox.Show($"Ошибка: {ex.Message}");
             }
         }
         public string GetStreamerID()
@@ -75,6 +97,11 @@ namespace MemeAlerts
             response.EnsureSuccessStatusCode();
             string responseBody = response.Content.ReadAsStringAsync().Result;
             return responseBody;
+        }
+
+        private void webView21_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

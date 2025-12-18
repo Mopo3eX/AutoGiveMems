@@ -55,7 +55,7 @@ namespace MemeAlerts
             }
         }
         bool PipeDisconnected = false;
-        public async Task SendAsync(string message)
+        public async Task<bool> SendAsync(string message)
         {
             if (pipe == null || !pipe.IsConnected)
             {
@@ -63,7 +63,7 @@ namespace MemeAlerts
                 {
                     PipeDisconnected = true;
                 }
-                return;
+                return false;
             }
             else if (PipeDisconnected == true)
             {
@@ -74,14 +74,30 @@ namespace MemeAlerts
             {
                 if (writer != null)
                 {
-                    try { writer.WriteLine(message); }
-                    catch { }
+                    try 
+                    { 
+                        writer.WriteLine(message);
+                        return true;
+                    }
+                    catch (Exception ex)
+                    {
+                        File.AppendAllText("error.log", $"[{DateTime.Now}] {ex.Message}\r\n{ex.StackTrace}");
+                        return false;
+                    }
+                }
+                else
+                {
+                    File.AppendAllText("error.log", $"[{DateTime.Now}] Writer is null");
+                    return false;
                 }
             }
-            catch (IOException)
+            catch (IOException ex)
             {
                 pipe?.Dispose();
+                File.AppendAllText("error.log", $"[{DateTime.Now}] {ex.Message}\r\n{ex.StackTrace}");
+                return false;
             }
+
         }
     }
 }
