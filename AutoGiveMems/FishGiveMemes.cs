@@ -160,6 +160,10 @@ namespace AutoGiveMems
                                 Instance.LoggerInstance.Msg($"Вы успешно авторизовались.");
                                 Stop = true;
                             }
+                            else
+                            {
+                                Instance.LoggerInstance.Msg($"Код авторизации получен, однако получить ID стримера не был получен. Попробуйте отключить VPN и Анти-Запрет и перезапустить игру.");
+                            }
                             if (Stop)
                                 return;
                         }

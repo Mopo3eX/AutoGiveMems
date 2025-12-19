@@ -18,5 +18,5 @@ using System.Runtime.InteropServices;
 // будет видимым для COM.
 
 [assembly: Guid("5875bc59-a13d-44dd-bdb7-2f6fb88d1563")]
-[assembly: MelonInfo(typeof(FishGiveMemes), "Auto Give Mems", "1.1.4", "1BlaBlaName")]
+[assembly: MelonInfo(typeof(FishGiveMemes), "Auto Give Mems", "1.1.5", "1BlaBlaName")]
 [assembly: MelonGame("BLAMCAM Interactive", "LurkBait Twitch Fishing")]
